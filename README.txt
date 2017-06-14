@@ -1,12 +1,13 @@
-This branch contains code for a custom memory allocator. The alloctor may be used instead of the
-standard "malloc" provided, but this is not recommended.
+This branch contains code for a thread safe data queue. Queue was tested using 128bit factoring method
+provided.
 
-Implimentation is as a Linked List of free nodes. Allocator iterates through Linked List looking
-a free block of memory. If one is found, this block is given to the user. If not, a new page is 
-pulled from the OS. Blocks are merged when "free" is called.
+Implimentation uses pthread library to create threads. Upon read/write operations, a thread will
+attempt to grab the mutex associated with a queue. If successful, the thread will continue with
+execution. If the mutex is not free, then the threads wait for the mutex to become free. This 
+mechanism prevents race conditions while allowing pseudo parallel operation.
 
 CODE I WROTE/MODIFIED:
-- nu_mem.c
-- nu_mem.h
+- queue.c
+- queue.h
 
-ALL ELSE PROVIDED! 
+ALL ELSE PROVIDED!
